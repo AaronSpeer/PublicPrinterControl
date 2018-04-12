@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SAIMUN Print</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/yetibootstrap.min.css" media="bogus">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+</head>
+<body>
+  {% include "templates/partials/navigation.twig" %}
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+  <div class="footer">
+   <p class="text-muted"><br>SAIMUN Print<br>
+     Copyright <a href="mailto:ajamesspeer@gmail.com">Aaron Speer</a>, © 2016-{{ "now"|date("Y") }},<br>
+ </div>
+ <link rel="stylesheet" href="/assets/yetibootstrap.min.css">
+ <script src="/assets/jquery.min.js"></script>
+ <script src="/assets/bootstrap.min.js"></script>
+{% block js %}{% endblock %}
+{% if config["https"] %}
+<script>
+var host = "{{ config["host"] }}";
+if ((host == window.location.host) && (window.location.protocol != "https:"))
+    window.location.protocol = "https";
+</script>
+{% endif %}
+</body>
+</html>
