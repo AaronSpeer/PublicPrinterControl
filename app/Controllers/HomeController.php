@@ -31,15 +31,41 @@ class HomeController extends Controller {
 
     if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfolder)){
       $targetfolder = str_replace(" ", "\ ", $targetfolder);
+      $tf = $targetfolder;
       $cmd = "sudo /usr/bin/unoconv --output=".$targetfolder." -f pdf ".$targetfolder;
-      exec($cmd);
+
+      $file_parts = pathinfo($tf);
+      if($file_parts["extension"] == "pdf")
+      {
+        exec("ls");
+      }
+      else{
+        exec($cmd);
+      }
+
+      global $config;
+
       echo $this->twig->render('upload.twig', array(
   			"messages" => $this->model->getMessages(),
-        "link" => $address
+        "link" => $address,
+        "printers" => $config["printers"],
+        "path" => escapeshellcmd($address)
       ));
     }
     else {
       echo "Problem uploading file";
     }
+  }
+
+  public function print(){
+    $printer = $_POST["printer"];
+    $copies = $_POST["copies"];
+    $path = $_POST["path"];
+    $printer=escapeshellcmd($printer);
+    $copies=escapeshellcmd($copies);
+    $path=str_replace(" ", "\ ", escapeshellcmd($path));
+    $path = __DIR__."/../../public".$path;
+    $cmd = "lp -d ".$printer." -n ".$copies." ".$path;
+    echo $cmd;
   }
 }

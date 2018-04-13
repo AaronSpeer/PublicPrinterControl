@@ -33,6 +33,7 @@ $router = new AltoRouter();
 $router->setBasePath('');
 $router->map('GET','/', "App\Controllers\HomeController#index", 'home');
 $router->map('GET|POST','/upload', "App\Controllers\HomeController#upload", 'upload');
+$router->map('GET|POST','/print', "App\Controllers\HomeController#print", 'print');
 $match = $router->match();
 
 

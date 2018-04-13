@@ -8,17 +8,82 @@
   {{ makeError(message[0], message[1], message[2]) | raw }}
 {% endfor %}
 
+<div class="row">
 
-<form action="/upload" method="post" enctype="multipart/form-data">
+  <div class="col-md-6">
+    <div class="panel panel-warning">
+      <div class="panel-heading">Printing Instructions</div>
+      <div class="panel-body">
+        <ol>
+          <li>Select the file you wish to print using the button on this page. PDFs work best, however most simple Word files should work.</li>
+          <li>If you have a .pages (Apple Pages), or more complex Word file (i.e. Formatted Notepaper) please export it as a PDF, or use the public PCs on the 2nd floor</li>
+          <li>Press the "Preview and Print" button</li>
+          <li>You will then be prompted to view the file, enter number of copies and select printer</li>
+          <li>Your document will then be added to the print queue</li>
+        </ol>
+      </div>
+    </div>
+  </div>
 
-<input type="file" name="file" size="500" />
+  <div class="col-md-6">
+    <div id="upbox" class="panel panel-info">
+      <div class="panel-heading">Please select the file you wish to print</div>
+      <div class="panel-body">
+        <span class="text-success" style="font-weight: bold;">Supported Formats:</span> PDF (.pdf)<br>
+        <span class="text-info" style="font-weight: bold;">Partially Supported Formats:</span> Microsoft Word (.docx), Microsoft Word (.doc), Open Office (.odt) and most other formats<br>
+        <span class="text-danger" style="font-weight: bold;">Unsupported Formats:</span> Apple Pages (.pages)
+        <br><br>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <label id="button" class="btn btn-success btn-file">
+            Select File<input type="file" name="file" size="500" style="display: none;">
+          </label>
+          <br>
+          <p id="uploaded"></p>
+          <input type="submit" class="btn btn-success" value="Preview and Print" />
+        </form>
+      </div>
+    </div>
+  </div>
 
-<br />
+</div>
 
-<input type="submit" value="Upload" />
 
-</form>
 
 {% endblock %}
 {% block js %}
+<script>
+$(function() {
+
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+  });
+
+  $(document).ready( function() {
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+          var input = $(this).parents('.input-group').find(':text'),
+              log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+          if( input.length ) {
+              input.val(log);
+          } else {
+              var str2 = "File Selected: "
+              if( log ) {
+                document.getElementById("uploaded").innerHTML = str2.concat(log);
+                document.getElementById("button").classList.remove('btn-success');
+                document.getElementById("button").classList.add('btn-default');
+                document.getElementById("button").classList.add('disabled');
+                document.getElementById("upbox").classList.remove('panel-info');
+                document.getElementById("upbox").classList.add('panel-success');
+              }
+          }
+
+      });
+  });
+
+});
+</script>
 {% endblock %}

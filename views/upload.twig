@@ -2,15 +2,97 @@
 {% block content %}
 
 <div class="page-header">
-  <h1>Welcome to the SAIMUN 2019 Public Printing Web App</h1>
+  <h1>File Successfully Submitted</h1>
 </div>
 {% for message in messages %}
   {{ makeError(message[0], message[1], message[2]) | raw }}
 {% endfor %}
 
-<h1>File Successfully Submitted
-Please check the formatting by clicking <a href="{{ link }}" target="_blank">here</a></h1>
+<div class="col-md-6">
+  <div class="panel panel-warning">
+    <div class="panel-heading">Confirm Print Preview</div>
+    <div class="panel-body">
+      <label>Open print preview in new tab:</label><br>
+      <a class="btn btn-success" href="{{ link }}" target="_blank">View Print Preview</a><br><br>
+      <div class="radio">
+        <label><input id="ok" value="ok" type="radio" name="optradio"><span class="text-success" style="font-weight: bold;">Looks Good!</span></label>
+      </div>
+      <div class="radio">
+        <label><input id="no" value="no" type="radio" name="optradio"><span class="text-danger" style="font-weight: bold;">Somethings Wrong?</span></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div id="print" style="display: none" class="panel panel-success">
+    <div class="panel-heading">Success: Ready to Print</div>
+    <div class="panel-body">
+      <form action="/print" method="post">
+        <div class="form-group">
+          <label for="printer">Choose Printer:</label>
+          <select name="printer" class="form-control" id="printer">
+            {% for id, name in printers %}
+              <option value="{{id}}">{{name}}</option>
+            {% endfor %}
+          </select>
+          <label for="copies">Select number of copies:</label>
+          <select name="copies" class="form-control" id="copies">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+            <option>18</option>
+            <option>19</option>
+            <option>20</option>
+          </select>
+        <input type="hidden" name="path" value="{{path}}">
+        <br>
+        <input type="submit" value="Submit" class="btn btn-success">
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div id="esc" style="display: none" class="panel panel-danger">
+    <div class="panel-heading">Failed!</div>
+    <div class="panel-body">
+      <p>Try uploading a PDF, or use the public PCs on the 2nd Floor</p>
+      <a href="/" class="btn btn-danger">Return to Homepage</a>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 {% block js %}
+<script>
+$('input:radio[name="optradio"]').change(function(){
+    if($(this).val() === 'ok'){
+       document.getElementById("print").style.display = "block";
+       document.getElementById("esc").style.display = "none";
+
+    }
+    if($(this).val() === 'no'){
+       document.getElementById("esc").style.display = "block";
+       document.getElementById("print").style.display = "none";
+
+    }
+});
+
+
+</script>
 {% endblock %}
