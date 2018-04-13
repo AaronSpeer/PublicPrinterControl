@@ -32,6 +32,7 @@ require(__DIR__ . "/../app/View.php");
 $router = new AltoRouter();
 $router->setBasePath('');
 $router->map('GET','/', "App\Controllers\HomeController#index", 'home');
+$router->map('GET|POST','/upload', "App\Controllers\HomeController#upload", 'upload');
 $match = $router->match();
 
 

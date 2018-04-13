@@ -8,16 +8,8 @@
   {{ makeError(message[0], message[1], message[2]) | raw }}
 {% endfor %}
 
-
-<form action="/upload" method="post" enctype="multipart/form-data">
-
-<input type="file" name="file" size="500" />
-
-<br />
-
-<input type="submit" value="Upload" />
-
-</form>
+<h1>File Successfully Submitted
+Please check the formatting by clicking <a href="{{ link }}" target="_blank">here</a></h1>
 
 {% endblock %}
 {% block js %}
