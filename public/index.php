@@ -1,5 +1,9 @@
 <?php
 
+exec("find tmp -mmin +4 | sed 's/\s/\\&/g' | xargs rm -rf");
+exec("mkdir tmp");
+// awkward command to clear files older then 4 minutes from tmp
+
 use App\Controllers\HomeController;
 use App\Controller;
 //use App\Models\HomeModel;
@@ -37,7 +41,6 @@ $router->map('GET|POST','/print', "App\Controllers\HomeController#print", 'print
 $match = $router->match();
 
 
-// not sure if code after this comment  is the best way to handle matched routes
 list( $controller, $action ) = explode( '#', $match['target'] );
 if ( is_callable(array($controller, $action)) ) {
     $obj = new $controller($twig);
