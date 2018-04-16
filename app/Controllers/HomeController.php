@@ -1,4 +1,11 @@
 <?php
+/**
+ * Public Printer Control System
+ *
+ * Copyright © 2018 - 2019, Aaron Speer, aaron.speerfamily.ie ajamesspeer@gmail.com.
+ * All Rights Reserved.
+ */
+
 namespace App\Controllers;
 
 use App\Models\HomeModel;
@@ -14,8 +21,11 @@ class HomeController extends Controller {
   }
 
   public function index(){
+    global $config;
     echo $this->twig->render('home.twig', array(
 			"messages" => $this->model->getMessages(),
+      "instr" => $config["step2instructions"],
+      "name" => $config["appname"]
     ));
   }
 
@@ -49,7 +59,9 @@ class HomeController extends Controller {
   			"messages" => $this->model->getMessages(),
         "link" => $address,
         "printers" => $config["printers"],
-        "path" => escapeshellcmd($address)
+        "path" => escapeshellcmd($address),
+        "instr" => $config["failedinstructions"],
+        "name" => $config["appname"]
       ));
     }
     else {

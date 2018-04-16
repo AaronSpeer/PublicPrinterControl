@@ -1,4 +1,10 @@
 <?php
+/**
+ * Public Printer Control System
+ *
+ * Copyright © 2018 - 2019, Aaron Speer, aaron.speerfamily.ie ajamesspeer@gmail.com.
+ * All Rights Reserved.
+ */
 
 exec("find tmp -mmin +4 | sed 's/\s/\\&/g' | xargs rm -rf");
 exec("mkdir tmp");

@@ -1,3 +1,11 @@
+{#
+/**
+ * Public Printer Control System
+ *
+ * Copyright © 2018 - 2019, Aaron Speer, aaron.speerfamily.ie ajamesspeer@gmail.com.
+ * All Rights Reserved.
+ */
+#}
 {% extends "templates/app.twig" %}
 {% block content %}
 
@@ -72,7 +80,7 @@
   <div id="esc" style="display: none" class="panel panel-danger">
     <div class="panel-heading">Failed!</div>
     <div class="panel-body">
-      <p>Try uploading a PDF, or use the public PCs on the 2nd Floor</p>
+      <p>{{instr}}</p>
       <a href="/" class="btn btn-danger">Return to Homepage</a>
     </div>
   </div>

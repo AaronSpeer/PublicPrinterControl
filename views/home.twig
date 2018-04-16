@@ -1,8 +1,16 @@
+{#
+/**
+ * Public Printer Control System
+ *
+ * Copyright © 2018 - 2019, Aaron Speer, aaron.speerfamily.ie ajamesspeer@gmail.com.
+ * All Rights Reserved.
+ */
+#}
 {% extends "templates/app.twig" %}
 {% block content %}
 
 <div class="page-header">
-  <h1>Welcome to the SAIMUN 2019 Public Printing Web App</h1>
+  <h1>Welcome to the {{name}} Public Printing Web App</h1>
 </div>
 {% for message in messages %}
   {{ makeError(message[0], message[1], message[2]) | raw }}
@@ -16,7 +24,7 @@
       <div class="panel-body">
         <ol>
           <li>Select the file you wish to print using the button on this page. PDFs work best, however most simple Word files should work.</li>
-          <li>If you have a .pages (Apple Pages), or more complex Word file (i.e. Formatted Notepaper) please export it as a PDF, or use the public PCs on the 2nd floor</li>
+          <li>{{instr}}</li>
           <li>Press the "Preview and Print" button</li>
           <li>You will then be prompted to view the file, enter number of copies and select printer</li>
           <li>Your document will then be added to the print queue</li>
