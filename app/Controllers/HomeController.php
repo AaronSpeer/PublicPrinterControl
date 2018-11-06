@@ -80,7 +80,7 @@ class HomeController extends Controller {
 
     $cmd = "lp -d ".$printer." -n ".$copies." ".$path;
     echo $cmd;
-    exec($cmd);
+    echo exec($cmd);
     $this->model->setMessage("Printing Successful!", "That file was printed ".$copies." time(s) on printer ".$printer, "success");
     header("Location: /");
 
