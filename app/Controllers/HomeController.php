@@ -69,7 +69,7 @@ class HomeController extends Controller {
     }
   }
 
-  public function print(){
+  public function printt(){
     $printer = $_POST["printer"];
     $copies = $_POST["copies"];
     $path = $_POST["path"];
